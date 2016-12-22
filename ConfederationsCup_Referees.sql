@@ -25,11 +25,17 @@ DROP TABLE IF EXISTS `Referees`;
 /*!40101 SET @saved_cs_client     = @@character_set_client */;
 /*!40101 SET character_set_client = utf8 */;
 CREATE TABLE `Referees` (
-  `id` int(6) NOT NULL,
-  `firstname` varchar(30) NOT NULL,
-  `lastname` varchar(30) NOT NULL,
-  PRIMARY KEY (`id`)
-) ENGINE=InnoDB DEFAULT CHARSET=latin1;
+  `groupId` int(6) NOT NULL AUTO_INCREMENT,
+  `firstname1` varchar(30) NOT NULL,
+  `lastname1` varchar(30) NOT NULL,
+  `firstname2` varchar(30) NOT NULL,
+  `lastname2` varchar(30) NOT NULL,
+  `firstname3` varchar(30) NOT NULL,
+  `lastname3` varchar(30) NOT NULL,
+  `firstname4` varchar(30) NOT NULL,
+  `lastname4` varchar(30) NOT NULL,
+  PRIMARY KEY (`groupId`)
+) ENGINE=InnoDB AUTO_INCREMENT=5 DEFAULT CHARSET=latin1;
 /*!40101 SET character_set_client = @saved_cs_client */;
 
 --
@@ -38,6 +44,7 @@ CREATE TABLE `Referees` (
 
 LOCK TABLES `Referees` WRITE;
 /*!40000 ALTER TABLE `Referees` DISABLE KEYS */;
+INSERT INTO `Referees` VALUES (1,'Ravshan','Irmatov','Abdukhamidullo','Rasulov','Bahadyr','Kochkarov','Alireza','Faghani'),(2,'Noumandiez','Doue','Songuifolo','Yeo','Jean','Birumushahu','Neant','Alioum'),(3,'Joel','Aguilar','William','Torres','Juan','Zumba','Roberto','Moreno'),(4,'Howard','Webb','Michael','Mullarkey','Darren','Cann','Kim','Haglund');
 /*!40000 ALTER TABLE `Referees` ENABLE KEYS */;
 UNLOCK TABLES;
 /*!40103 SET TIME_ZONE=@OLD_TIME_ZONE */;
@@ -50,4 +57,4 @@ UNLOCK TABLES;
 /*!40101 SET COLLATION_CONNECTION=@OLD_COLLATION_CONNECTION */;
 /*!40111 SET SQL_NOTES=@OLD_SQL_NOTES */;
 
--- Dump completed on 2016-12-22 14:46:28
+-- Dump completed on 2016-12-22 16:26:51

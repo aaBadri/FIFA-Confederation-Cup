@@ -31,29 +31,19 @@ CREATE TABLE `Matches` (
   `goalNumber1` int(11) NOT NULL,
   `goalNumber2` int(11) NOT NULL,
   `stadiumName` varchar(20) NOT NULL,
-  `refereeId1` int(6) NOT NULL,
-  `refereeId2` int(6) NOT NULL,
-  `refereeId3` int(6) NOT NULL,
-  `refereeId4` int(6) NOT NULL,
+  `refereeGroupId` int(6) NOT NULL,
   `round` int(6) NOT NULL,
-  `teamName` varchar(30) NOT NULL,
   `timeSlotId` int(6) NOT NULL,
   PRIMARY KEY (`matchId`),
   KEY `teamName1` (`teamName1`),
   KEY `teamName2` (`teamName2`),
   KEY `stadiumName` (`stadiumName`),
-  KEY `refereeId1` (`refereeId1`),
-  KEY `refereeId2` (`refereeId2`),
-  KEY `refereeId3` (`refereeId3`),
-  KEY `refereeId4` (`refereeId4`),
   KEY `timeSlotId` (`timeSlotId`),
+  KEY `fk_Matches_1_idx` (`refereeGroupId`),
+  CONSTRAINT `fk_Matches_1` FOREIGN KEY (`refereeGroupId`) REFERENCES `Referees` (`groupId`) ON DELETE NO ACTION ON UPDATE NO ACTION,
   CONSTRAINT `Matches_ibfk_1` FOREIGN KEY (`teamName1`) REFERENCES `Teams` (`teamName`),
   CONSTRAINT `Matches_ibfk_2` FOREIGN KEY (`teamName2`) REFERENCES `Teams` (`teamName`),
   CONSTRAINT `Matches_ibfk_3` FOREIGN KEY (`stadiumName`) REFERENCES `Stadiums` (`stadiumName`),
-  CONSTRAINT `Matches_ibfk_4` FOREIGN KEY (`refereeId1`) REFERENCES `Referees` (`id`),
-  CONSTRAINT `Matches_ibfk_5` FOREIGN KEY (`refereeId2`) REFERENCES `Referees` (`id`),
-  CONSTRAINT `Matches_ibfk_6` FOREIGN KEY (`refereeId3`) REFERENCES `Referees` (`id`),
-  CONSTRAINT `Matches_ibfk_7` FOREIGN KEY (`refereeId4`) REFERENCES `Referees` (`id`),
   CONSTRAINT `Matches_ibfk_8` FOREIGN KEY (`timeSlotId`) REFERENCES `TimeSlot` (`id`)
 ) ENGINE=InnoDB DEFAULT CHARSET=latin1;
 /*!40101 SET character_set_client = @saved_cs_client */;
@@ -76,4 +66,4 @@ UNLOCK TABLES;
 /*!40101 SET COLLATION_CONNECTION=@OLD_COLLATION_CONNECTION */;
 /*!40111 SET SQL_NOTES=@OLD_SQL_NOTES */;
 
--- Dump completed on 2016-12-22 14:46:28
+-- Dump completed on 2016-12-22 16:26:51

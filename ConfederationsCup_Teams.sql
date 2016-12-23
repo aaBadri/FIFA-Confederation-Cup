@@ -46,6 +46,70 @@ LOCK TABLES `Teams` WRITE;
 INSERT INTO `Teams` VALUES ('Brazil',1,0000,0000,0000,0000,0000,0000),('Italy',1,0000,0000,0000,0000,0000,0000),('Japan',1,0000,0000,0000,0000,0000,0000),('Mexico',1,0000,0000,0000,0000,0000,0000),('Nigeria',2,0000,0000,0000,0000,0000,0000),('Spain',2,0000,0000,0000,0000,0000,0000),('Tahiti',2,0000,0000,0000,0000,0000,0000),('Uruguay',2,0000,0000,0000,0000,0000,0000);
 /*!40000 ALTER TABLE `Teams` ENABLE KEYS */;
 UNLOCK TABLES;
+/*!50003 SET @saved_cs_client      = @@character_set_client */ ;
+/*!50003 SET @saved_cs_results     = @@character_set_results */ ;
+/*!50003 SET @saved_col_connection = @@collation_connection */ ;
+/*!50003 SET character_set_client  = utf8 */ ;
+/*!50003 SET character_set_results = utf8 */ ;
+/*!50003 SET collation_connection  = utf8_general_ci */ ;
+/*!50003 SET @saved_sql_mode       = @@sql_mode */ ;
+/*!50003 SET sql_mode              = '' */ ;
+DELIMITER ;;
+/*!50003 CREATE*/ /*!50017 DEFINER=`root`@`localhost`*/ /*!50003 TRIGGER Teams_insert
+BEFORE INSERT
+ON Teams
+FOR EACH ROW
+BEGIN
+	DECLARE msg varchar(255);
+	SELECT COUNT(*) INTO @cnt FROM Teams;
+	IF @cnt >= 8 THEN
+		SET msg = 'more than 8';
+		SIGNAL SQLSTATE '45000' SET MESSAGE_TEXT = msg;
+	END IF;
+	IF NEW.groupNumber != 1 and NEW.groupNumber != 2 THEN 
+		SIGNAL SQLSTATE '45000' SET MESSAGE_TEXT = 'Invalid groupNumber.it must be 1 or 2';
+	END if;
+	IF NEW.teamName != 'Brazil' and NEW.teamName != 'Japan' and NEW.teamName != 'Mexico' and NEW.teamName != 'Italy' and NEW.teamName != 'Nigeria' and NEW.teamName != 'Tahiti' and NEW.teamName != 'Uruguay' and NEW.teamName != 'Spain' THEN 
+		SIGNAL SQLSTATE '45000' SET MESSAGE_TEXT = 'Invalid country name.it must be one of : Brazil,Japan,Mexico,Italy,Nigeria,Tahiti,Uruguay,Spain';
+	END if;
+END */;;
+DELIMITER ;
+/*!50003 SET sql_mode              = @saved_sql_mode */ ;
+/*!50003 SET character_set_client  = @saved_cs_client */ ;
+/*!50003 SET character_set_results = @saved_cs_results */ ;
+/*!50003 SET collation_connection  = @saved_col_connection */ ;
+/*!50003 SET @saved_cs_client      = @@character_set_client */ ;
+/*!50003 SET @saved_cs_results     = @@character_set_results */ ;
+/*!50003 SET @saved_col_connection = @@collation_connection */ ;
+/*!50003 SET character_set_client  = utf8 */ ;
+/*!50003 SET character_set_results = utf8 */ ;
+/*!50003 SET collation_connection  = utf8_general_ci */ ;
+/*!50003 SET @saved_sql_mode       = @@sql_mode */ ;
+/*!50003 SET sql_mode              = '' */ ;
+DELIMITER ;;
+/*!50003 CREATE*/ /*!50017 DEFINER=`root`@`localhost`*/ /*!50003 TRIGGER Teams_update
+BEFORE UPDATE
+ON Teams
+FOR EACH ROW
+BEGIN
+	DECLARE msg varchar(255);
+	SELECT COUNT(*) INTO @cnt FROM Teams;
+	IF @cnt >= 8 THEN
+		SET msg = 'more than 8';
+		SIGNAL SQLSTATE '45000' SET MESSAGE_TEXT = msg;
+	END IF;
+	IF NEW.groupNumber != 1 and NEW.groupNumber != 2 THEN 
+		SIGNAL SQLSTATE '45000' SET MESSAGE_TEXT = 'Invalid groupNumber.it must be 1 or 2';
+	END if;
+	IF NEW.teamName != 'Brazil' and NEW.teamName != 'Japan' and NEW.teamName != 'Mexico' and NEW.teamName != 'Italy' and NEW.teamName != 'Nigeria' and NEW.teamName != 'Tahiti' and NEW.teamName != 'Uruguay' and NEW.teamName != 'Spain' THEN 
+		SIGNAL SQLSTATE '45000' SET MESSAGE_TEXT = 'Invalid country name.it must be one of : Brazil,Japan,Mexico,Italy,Nigeria,Tahiti,Uruguay,Spain';
+	END if;
+END */;;
+DELIMITER ;
+/*!50003 SET sql_mode              = @saved_sql_mode */ ;
+/*!50003 SET character_set_client  = @saved_cs_client */ ;
+/*!50003 SET character_set_results = @saved_cs_results */ ;
+/*!50003 SET collation_connection  = @saved_col_connection */ ;
 /*!40103 SET TIME_ZONE=@OLD_TIME_ZONE */;
 
 /*!40101 SET SQL_MODE=@OLD_SQL_MODE */;
@@ -56,4 +120,4 @@ UNLOCK TABLES;
 /*!40101 SET COLLATION_CONNECTION=@OLD_COLLATION_CONNECTION */;
 /*!40111 SET SQL_NOTES=@OLD_SQL_NOTES */;
 
--- Dump completed on 2016-12-22 16:26:51
+-- Dump completed on 2016-12-24  0:07:20

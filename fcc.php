@@ -143,11 +143,11 @@ $conn = new mysqli("localhost", "root", "121212", "ConfederationsCup");
         }
 
         a:hover {
-            background-color: darkslateblue;
+            background-color: #585b58;
         }
 
         ::-webkit-input-placeholder { /* Chrome */
-            color: #237C21;
+            color: #072952;
             transition: opacity 250ms ease-in-out;
         }
 
@@ -157,7 +157,7 @@ $conn = new mysqli("localhost", "root", "121212", "ConfederationsCup");
             height: 100px;
             font-size: 15px;
             border: 1px solid #888;
-            color: antiquewhite;
+            color: #350a69;
             margin: 20px auto;
             text-align: left;
             padding: 5px;
@@ -199,6 +199,65 @@ $conn = new mysqli("localhost", "root", "121212", "ConfederationsCup");
             border-top-color: #2f5ed6;
             background: #2f5ed6;
         }
+
+        .addMatch {
+            border-top: 1px solid #3cbef2;
+            background: #3CBEF2;
+            background: -webkit-gradient(linear, left top, left bottom, from(#3cbef2), to(#65a9d7));
+            background: -webkit-linear-gradient(top, #3cbef2, #65a9d7);
+            background: -moz-linear-gradient(top, #3cbef2, #65a9d7);
+            background: -ms-linear-gradient(top, #3cbef2, #65a9d7);
+            background: -o-linear-gradient(top, #3cbef2, #65a9d7);
+            padding: 8.5px 17px;
+            -webkit-border-radius: 8px;
+            -moz-border-radius: 8px;
+            border-radius: 8px;
+            -webkit-box-shadow: rgba(0, 0, 0, 1) 0 1px 0;
+            -moz-box-shadow: rgba(0, 0, 0, 1) 0 1px 0;
+            box-shadow: rgba(0, 0, 0, 1) 0 1px 0;
+            text-shadow: rgba(0, 0, 0, .4) 0 1px 0;
+            color: white;
+            font-size: 15px;
+
+            font-family: Georgia, serif;
+            text-decoration: none;
+            vertical-align: middle;
+        }
+
+        .addMatch:hover {
+            border-top-color: #28597a;
+            background: #32789e;
+            color: #ccc;
+        }
+
+        .addMatch:active {
+            border-top-color: #2f5ed6;
+            background: #2f5ed6;
+        }
+
+        .matchItem {
+            display: inline-block;
+            width: 100px;
+            height: 30px;
+            font-size: 15px;
+            border: 1px solid #888;
+            color: #020c1d;
+            margin: 10px auto;
+            margin-right: 33px;
+            text-align: left;
+            padding: 5px;
+            font-family: Tahoma, sans-serif;
+            background-color: #3CBEF2;
+        }
+
+        #players1, #players2 {
+            width: 250px;
+
+        }
+
+        #qualifybtn {
+            background-color: darkolivegreen;
+        }
     </style>
 </head>
 <body>
@@ -207,16 +266,86 @@ $conn = new mysqli("localhost", "root", "121212", "ConfederationsCup");
     <br/>
     <input type="submit" name="playbtn" id="playbtn" value="Play"/>
 </form>
-<table>
+<form action="fcc.php" id="qualify" method="post">
+    <input type="submit" name="qualifybtn" id="qualifybtn" class="addMatch" value="qualify"/>
+</form>
 
-    <?php
-    if (isset($_POST['playbtn'])) {
-    $query = $_POST['queryPlace'];
-    //echo $query;
-    //$query = "SELECT * FROM Matches";
+<?php
+if (isset($_POST['qualifybtn'])) {
+    $query = "SELECT * FROM Matches";
     $result = $conn->query($query);
-    ?>
-    <table>
+    $not_null = true;
+    $counter =0;
+    while ($row = $result->fetch_row()) {
+        if($not_null==false)
+            break;
+        for ($i = 0; $i < sizeof($row); $i++) {
+            if($not_null==false)
+                break;
+            if ($row[7] == 1 and ($row[3] == null or $row[4] == null)) {
+                $not_null = false;
+
+                echo "<p style='color:red;font-size: 30px;'>".'First fill all matches in group round!!!!! '."</p>";
+            }
+
+        }
+    }
+    while ($row = $result->fetch_row()) {
+        if($not_null==false)
+            break;
+        for ($i = 0; $i < sizeof($row); $i++) {
+
+            if ($row[7] == 1 ) {
+                $counter++;
+            }
+
+        }
+    }
+    if ($not_null == true and $counter==12) {
+        try {
+            // execute the stored procedure
+            $sql = 'CALL qualify()';
+            // call the stored procedure
+            $q = $conn->query($sql);
+        } catch (PDOException $e) {
+            die("Error occurred:" . $e->getMessage());
+        }
+        $query = "SELECT * FROM Matches";
+        $result = $conn->query($query);
+        if ($result != false) {
+            ?>
+            <table>
+                <?php
+                echo '<tr>';
+                while ($property = mysqli_fetch_field($result)) {
+                    echo '<th>' . $property->name . '<th/>';
+                }
+                echo '<tr/>';
+                while ($row = $result->fetch_row()) {
+                    echo '<tr>';
+                    //foreach ($row as $item){
+                    for ($i = 0; $i < sizeof($row); $i++) {
+                        echo '<td>' . $row[$i] . '<td/>';
+                    }
+                    echo '<tr/>';
+                }
+
+                ?>
+            </table>
+        <?php }
+    }
+} ?>
+<?php
+if (isset($_POST['playbtn'])) {
+    $query = $_POST['queryPlace'];
+//echo $query;
+//$query = "SELECT * FROM Matches";
+    $result = $conn->query($query);
+    if ($result != false) {
+        ?>
+        <br/>
+        <br/>
+        <table>
         <?php
         echo '<tr>';
         while ($property = mysqli_fetch_field($result)) {
@@ -226,15 +355,31 @@ $conn = new mysqli("localhost", "root", "121212", "ConfederationsCup");
         while ($row = $result->fetch_row()) {
             echo '<tr>';
             //foreach ($row as $item){
-            for ($i = 0; $i < sizeof($row); $i++) {
+            for ($i = 0;
+                 $i < sizeof($row);
+                 $i++) {
                 echo '<td>' . $row[$i] . '<td/>';
             }
             echo '<tr/>';
         }
-        }
-        ?>
-
-
+    }
+    ?>
     </table>
+<?php }
+?>
+
+<form action="fcc.php" id="addForm" method="post">
+    <input type="team1" id="team1" name="team1" class="matchItem" placeholder="team1"/>
+    <input type="goal1" id="goal1" name="goal1" class="matchItem" placeholder="goal1"/>
+    <br/>
+    <input type="team2" id="team2" name="team1" class="matchItem" placeholder="team2"/>
+    <input type="goal2" id="goal2" name="goal2" class="matchItem" placeholder="goal2"/>
+    <br/>
+    <input type="players1" id="players1" name="players1" class="matchItem"
+           placeholder="write their id and separate them with ,"/>
+    <br/>
+    <input type="submit" name="addbtn" id="addbtn" class="addMatch" value="Add"/>
+</form>
+
 </body>
 </html>

@@ -291,7 +291,6 @@ if (isset($_POST['playbtn'])) {
         echo '<tr/>';
         while ($row = $result->fetch_row()) {
             echo '<tr>';
-            //foreach ($row as $item){
             for ($i = 0;
                  $i < sizeof($row);
                  $i++) {

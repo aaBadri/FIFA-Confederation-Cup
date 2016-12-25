@@ -4,6 +4,13 @@
     <list default="true" id="c607b109-1321-4d8b-8708-1301d77cb63d" name="Default" comment="">
       <change type="MODIFICATION" beforePath="$PROJECT_DIR$/.gitignore" afterPath="$PROJECT_DIR$/.gitignore" />
       <change type="MODIFICATION" beforePath="$PROJECT_DIR$/.idea/workspace.xml" afterPath="$PROJECT_DIR$/.idea/workspace.xml" />
+      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/ConfederationsCup_Matches.sql" afterPath="$PROJECT_DIR$/ConfederationsCup_Matches.sql" />
+      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/ConfederationsCup_Players.sql" afterPath="$PROJECT_DIR$/ConfederationsCup_Players.sql" />
+      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/ConfederationsCup_Referees.sql" afterPath="$PROJECT_DIR$/ConfederationsCup_Referees.sql" />
+      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/ConfederationsCup_Stadiums.sql" afterPath="$PROJECT_DIR$/ConfederationsCup_Stadiums.sql" />
+      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/ConfederationsCup_Teams.sql" afterPath="$PROJECT_DIR$/ConfederationsCup_Teams.sql" />
+      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/ConfederationsCup_TimeSlot.sql" afterPath="$PROJECT_DIR$/ConfederationsCup_TimeSlot.sql" />
+      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/ConfederationsCup_staffs.sql" afterPath="$PROJECT_DIR$/ConfederationsCup_staffs.sql" />
       <change type="MODIFICATION" beforePath="$PROJECT_DIR$/fcc.php" afterPath="$PROJECT_DIR$/fcc.php" />
     </list>
     <ignored path="FIFAConfederationCup.iws" />
@@ -36,15 +43,11 @@
       <file leaf-file-name="fcc.php" pinned="false" current-in-tab="true">
         <entry file="file://$PROJECT_DIR$/fcc.php">
           <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="288">
-              <caret line="293" column="25" selection-start-line="293" selection-start-column="25" selection-end-line="293" selection-end-column="25" />
+            <state relative-caret-position="234">
+              <caret line="292" column="24" selection-start-line="292" selection-start-column="24" selection-end-line="292" selection-end-column="24" />
               <folding>
                 <element signature="n#head#0;n#html#0;n#!!top" expanded="false" />
-                <element signature="n#style#0;n#head#0;n#html#0;n#!!top" expanded="false" />
-                <element signature="n#div#0;n#body#0;n#html#0;n#!!top" expanded="false" />
-                <element signature="n#form#0;n#div#0;n#body#0;n#html#0;n#!!top" expanded="false" />
-                <marker date="1482625183326" expanded="true" signature="7719:7740" ph="SELECT * FRO... Matches" />
-                <marker date="1482625183326" expanded="true" signature="7860:7888" ph="..." />
+                <marker date="1482628311622" expanded="true" signature="7804:7832" ph="..." />
               </folding>
             </state>
           </provider>
@@ -60,8 +63,8 @@
       <list>
         <option value="$PROJECT_DIR$/insert.php" />
         <option value="$PROJECT_DIR$/main.php" />
-        <option value="$PROJECT_DIR$/.gitignore" />
         <option value="$PROJECT_DIR$/comment.txt" />
+        <option value="$PROJECT_DIR$/.gitignore" />
         <option value="$PROJECT_DIR$/fcc.php" />
       </list>
     </option>
@@ -121,6 +124,20 @@
               <option name="myItemType" value="" />
             </PATH_ELEMENT>
             <PATH_ELEMENT USER_OBJECT="FIFAConfederationCup">
+              <option name="myItemId" value="" />
+              <option name="myItemType" value="" />
+            </PATH_ELEMENT>
+          </PATH>
+          <PATH>
+            <PATH_ELEMENT USER_OBJECT="Root">
+              <option name="myItemId" value="" />
+              <option name="myItemType" value="" />
+            </PATH_ELEMENT>
+            <PATH_ELEMENT USER_OBJECT="FIFAConfederationCup">
+              <option name="myItemId" value="" />
+              <option name="myItemType" value="" />
+            </PATH_ELEMENT>
+            <PATH_ELEMENT USER_OBJECT=".idea">
               <option name="myItemId" value="" />
               <option name="myItemType" value="" />
             </PATH_ELEMENT>
@@ -209,16 +226,16 @@
       <workItem from="1482567217937" duration="628000" />
       <workItem from="1482568132024" duration="10352000" />
       <workItem from="1482581508320" duration="14444000" />
-      <workItem from="1482621600467" duration="3508000" />
+      <workItem from="1482621600467" duration="4839000" />
     </task>
     <servers />
   </component>
   <component name="TimeTrackingManager">
-    <option name="totallyTimeSpent" value="28932000" />
+    <option name="totallyTimeSpent" value="30263000" />
   </component>
   <component name="ToolWindowManager">
     <frame x="49" y="24" width="1317" height="744" extended-state="6" />
-    <editor active="true" />
+    <editor active="false" />
     <layout>
       <window_info id="Project" active="false" anchor="left" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="true" show_stripe_button="true" weight="0.26121163" sideWeight="0.5" order="0" side_tool="false" content_ui="combo" />
       <window_info id="TODO" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.33" sideWeight="0.5" order="6" side_tool="false" content_ui="tabs" />
@@ -227,7 +244,7 @@
       <window_info id="Version Control" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.33" sideWeight="0.5" order="7" side_tool="false" content_ui="tabs" />
       <window_info id="Run" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.33" sideWeight="0.5" order="2" side_tool="false" content_ui="tabs" />
       <window_info id="Structure" active="false" anchor="left" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.25" sideWeight="0.5" order="1" side_tool="false" content_ui="tabs" />
-      <window_info id="Terminal" active="false" anchor="bottom" auto_hide="true" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.32847896" sideWeight="0.5" order="7" side_tool="false" content_ui="tabs" />
+      <window_info id="Terminal" active="true" anchor="bottom" auto_hide="true" internal_type="DOCKED" type="DOCKED" visible="true" show_stripe_button="true" weight="0.32847896" sideWeight="0.5" order="7" side_tool="false" content_ui="tabs" />
       <window_info id="Favorites" active="false" anchor="left" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.33" sideWeight="0.5" order="2" side_tool="true" content_ui="tabs" />
       <window_info id="Debug" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.4" sideWeight="0.5" order="3" side_tool="false" content_ui="tabs" />
       <window_info id="Cvs" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.25" sideWeight="0.5" order="4" side_tool="false" content_ui="tabs" />
@@ -263,11 +280,7 @@
           <caret line="369" column="0" selection-start-line="369" selection-start-column="0" selection-end-line="369" selection-end-column="0" />
           <folding>
             <element signature="n#head#0;n#html#0;n#!!top" expanded="false" />
-            <element signature="n#style#0;n#head#0;n#html#0;n#!!top" expanded="false" />
-            <element signature="n#div#0;n#body#0;n#html#0;n#!!top" expanded="false" />
-            <element signature="n#form#0;n#div#0;n#body#0;n#html#0;n#!!top" expanded="false" />
-            <marker date="1482625183326" expanded="true" signature="7719:7740" ph="SELECT * FRO... Matches" />
-            <marker date="1482625183326" expanded="true" signature="7860:7888" ph="..." />
+            <marker date="1482628311622" expanded="true" signature="7804:7832" ph="..." />
           </folding>
         </state>
       </provider>
@@ -286,11 +299,7 @@
           <caret line="0" column="0" selection-start-line="0" selection-start-column="0" selection-end-line="0" selection-end-column="0" />
           <folding>
             <element signature="n#head#0;n#html#0;n#!!top" expanded="false" />
-            <element signature="n#style#0;n#head#0;n#html#0;n#!!top" expanded="false" />
-            <element signature="n#div#0;n#body#0;n#html#0;n#!!top" expanded="false" />
-            <element signature="n#form#0;n#div#0;n#body#0;n#html#0;n#!!top" expanded="false" />
-            <marker date="1482625183326" expanded="true" signature="7719:7740" ph="SELECT * FRO... Matches" />
-            <marker date="1482625183326" expanded="true" signature="7860:7888" ph="..." />
+            <marker date="1482628311622" expanded="true" signature="7804:7832" ph="..." />
           </folding>
         </state>
       </provider>
@@ -304,11 +313,7 @@
           <caret line="0" column="0" selection-start-line="0" selection-start-column="0" selection-end-line="0" selection-end-column="0" />
           <folding>
             <element signature="n#head#0;n#html#0;n#!!top" expanded="false" />
-            <element signature="n#style#0;n#head#0;n#html#0;n#!!top" expanded="false" />
-            <element signature="n#div#0;n#body#0;n#html#0;n#!!top" expanded="false" />
-            <element signature="n#form#0;n#div#0;n#body#0;n#html#0;n#!!top" expanded="false" />
-            <marker date="1482625183326" expanded="true" signature="7719:7740" ph="SELECT * FRO... Matches" />
-            <marker date="1482625183326" expanded="true" signature="7860:7888" ph="..." />
+            <marker date="1482628311622" expanded="true" signature="7804:7832" ph="..." />
           </folding>
         </state>
       </provider>
@@ -325,14 +330,6 @@
     </entry>
     <entry file="file://$PROJECT_DIR$/insert.php" />
     <entry file="file://$PROJECT_DIR$/main.php" />
-    <entry file="file://$PROJECT_DIR$/.gitignore">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="282">
-          <caret line="56" column="6" selection-start-line="56" selection-start-column="6" selection-end-line="56" selection-end-column="6" />
-          <folding />
-        </state>
-      </provider>
-    </entry>
     <entry file="file://$PROJECT_DIR$/comment.txt">
       <provider selected="true" editor-type-id="text-editor">
         <state relative-caret-position="552">
@@ -349,17 +346,29 @@
         </state>
       </provider>
     </entry>
+    <entry file="file://$PROJECT_DIR$/.gitignore">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="282">
+          <caret line="56" column="7" selection-start-line="56" selection-start-column="7" selection-end-line="56" selection-end-column="7" />
+          <folding />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/ConfederationsCup_staffs.sql">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="-324">
+          <caret line="0" column="0" selection-start-line="0" selection-start-column="0" selection-end-line="0" selection-end-column="0" />
+          <folding />
+        </state>
+      </provider>
+    </entry>
     <entry file="file://$PROJECT_DIR$/fcc.php">
       <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="288">
-          <caret line="293" column="25" selection-start-line="293" selection-start-column="25" selection-end-line="293" selection-end-column="25" />
+        <state relative-caret-position="234">
+          <caret line="292" column="24" selection-start-line="292" selection-start-column="24" selection-end-line="292" selection-end-column="24" />
           <folding>
             <element signature="n#head#0;n#html#0;n#!!top" expanded="false" />
-            <element signature="n#style#0;n#head#0;n#html#0;n#!!top" expanded="false" />
-            <element signature="n#div#0;n#body#0;n#html#0;n#!!top" expanded="false" />
-            <element signature="n#form#0;n#div#0;n#body#0;n#html#0;n#!!top" expanded="false" />
-            <marker date="1482625183326" expanded="true" signature="7719:7740" ph="SELECT * FRO... Matches" />
-            <marker date="1482625183326" expanded="true" signature="7860:7888" ph="..." />
+            <marker date="1482628311622" expanded="true" signature="7804:7832" ph="..." />
           </folding>
         </state>
       </provider>

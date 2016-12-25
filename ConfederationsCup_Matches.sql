@@ -45,7 +45,7 @@ CREATE TABLE `Matches` (
   CONSTRAINT `Matches_ibfk_2` FOREIGN KEY (`teamName2`) REFERENCES `Teams` (`teamName`),
   CONSTRAINT `Matches_ibfk_3` FOREIGN KEY (`stadiumName`) REFERENCES `Stadiums` (`stadiumName`),
   CONSTRAINT `Matches_ibfk_8` FOREIGN KEY (`timeSlotId`) REFERENCES `TimeSlot` (`id`)
-) ENGINE=InnoDB AUTO_INCREMENT=15 DEFAULT CHARSET=latin1;
+) ENGINE=InnoDB AUTO_INCREMENT=33 DEFAULT CHARSET=latin1;
 /*!40101 SET character_set_client = @saved_cs_client */;
 
 --
@@ -54,7 +54,7 @@ CREATE TABLE `Matches` (
 
 LOCK TABLES `Matches` WRITE;
 /*!40000 ALTER TABLE `Matches` DISABLE KEYS */;
-INSERT INTO `Matches` VALUES (1,'Brazil','Japan',NULL,NULL,'Azadi',1,1,1),(2,'Mexico','Italy',NULL,NULL,'Ghadir',2,1,2),(3,'Spain','Uruguay',NULL,NULL,'Naghsh-e-Jahan',3,1,3),(4,'Tahiti','Nigeria',NULL,NULL,'Sahand',4,1,4),(5,'Brazil','Mexico',NULL,NULL,'Azadi',1,1,5),(6,'Italy','Japan',NULL,NULL,'Ghadir',2,1,6),(7,'Spain','Tahiti',NULL,NULL,'Naghsh-e-Jahan',3,1,7),(8,'Nigeria','Uruguay',NULL,NULL,'Sahand',4,1,8),(9,'Brazil','Italy',NULL,NULL,'Azadi',1,1,9),(10,'Mexico','Japan',NULL,NULL,'Ghadir',2,1,9),(11,'Spain','Nigeria',NULL,NULL,'Naghsh-e-Jahan',3,1,9),(12,'Tahiti','Nigeria',NULL,NULL,'Sahand',4,1,9);
+INSERT INTO `Matches` VALUES (1,'Brazil','Japan',3,0,'Azadi',1,1,1),(2,'Mexico','Italy',1,3,'Ghadir',2,1,2),(3,'Spain','Uruguay',2,1,'Naghsh-e-Jahan',3,1,3),(4,'Tahiti','Nigeria',1,6,'Sahand',4,1,4),(5,'Brazil','Mexico',2,0,'Azadi',1,1,5),(6,'Italy','Japan',4,3,'Ghadir',2,1,6),(7,'Spain','Tahiti',10,0,'Naghsh-e-Jahan',3,1,7),(8,'Nigeria','Uruguay',1,3,'Sahand',4,1,8),(9,'Brazil','Italy',4,2,'Azadi',1,1,9),(10,'Mexico','Japan',2,1,'Ghadir',2,1,9),(11,'Spain','Nigeria',3,0,'Naghsh-e-Jahan',3,1,9),(12,'Tahiti','Uruguay',0,9,'Sahand',4,1,9);
 /*!40000 ALTER TABLE `Matches` ENABLE KEYS */;
 UNLOCK TABLES;
 /*!50003 SET @saved_cs_client      = @@character_set_client */ ;
@@ -66,131 +66,26 @@ UNLOCK TABLES;
 /*!50003 SET @saved_sql_mode       = @@sql_mode */ ;
 /*!50003 SET sql_mode              = '' */ ;
 DELIMITER ;;
-/*!50003 CREATE*/ /*!50017 DEFINER=`root`@`localhost`*/ /*!50003 TRIGGER Matches_insert
-BEFORE INSERT
+/*!50003 CREATE*/ /*!50017 DEFINER=`root`@`localhost`*/ /*!50003 TRIGGER Matches_after_update
+AFTER UPDATE
 ON Matches
 FOR EACH ROW
 BEGIN
-	
-	set @gn1 = (SELECT groupNumber FROM Teams 
-		 where Teams.teamName= new.teamName1  limit 1);
+	if !((new.goalNumber1 is null) or (new.goalNumber2 is null)) and new.round=1 then
+		update Teams set goalF=goalF + new.goalNumber1,goalA=goalA+ new.goalNumber2 where teamName = new.teamName1;
+		update Teams set goalF=goalF+ new.goalNumber2,goalA=goalA+ new.goalNumber1 where teamName = new.teamName2;
+		if new.goalNumber1 > new.goalNumber2 then
+			update Teams set win=win+1,pts=pts+3 where teamName = new.teamName1;
+			update Teams set lose=lose+1 where teamName = new.teamName2;
+		elseif new.goalNumber1 < new.goalNumber2 then
+			update Teams set win=win+1,pts=pts+3 where teamName = new.teamName2;
+			update Teams set lose=lose+1 where teamName = new.teamName1;
+		else
+			update Teams set draw=draw+1,pts=pts+1 where teamName = new.teamName1;
+			update Teams set draw=draw+1,pts=pts+1 where teamName = new.teamName2;
+		end if;
+		end if;
 
-	set @gn2 = (SELECT groupNumber FROM Teams 
-		 where Teams.teamName= new.teamName2  limit 1);
-	IF new.round = 1 and (@gn1 != @gn2) then
-		SIGNAL SQLSTATE '45000' SET MESSAGE_TEXT = 'these are not in same group';
-	end if;
-	IF new.round = 2 and (@gn1 = @gn2) then
-		SIGNAL SQLSTATE '45000' SET MESSAGE_TEXT = 'these was in a group and it is immposible.';
-	end if;
-
-	if exists (SELECT * FROM Matches where new.timeSlotId = timeSlotId and new.refereeGroupId = refereeGroupId) then
-		SIGNAL SQLSTATE '45000' SET MESSAGE_TEXT = 'concurrent in referee group';
-	end if;
-	if exists (SELECT * FROM Matches where new.timeSlotId = timeSlotId and new.stadiumName = stadiumName) then
-		SIGNAL SQLSTATE '45000' SET MESSAGE_TEXT = 'concurrent in stadium';
-	end if;
-	if new.teamName1 = new.teamName2 then
-		SIGNAL SQLSTATE '45000' SET MESSAGE_TEXT = 'teamNames are not different!!';
-	end if;
-	
-	SELECT COUNT(*) INTO @gameNumber FROM Matches where teamName1 = NEW.teamName1 or teamName1 = new.teamName2 or teamName2 = new.teamName1 or teamName2 = new.teamName1;
-	IF @gameNumber = 2 and new.round = 1 and new.timeSlotId != 9 THEN
-		SIGNAL SQLSTATE '45000' SET MESSAGE_TEXT = 'in third match of every team in group round , timeSlotId must be 9';
-	elseif @gameNumber >=3 and new.round = 1 then
-		SIGNAL SQLSTATE '45000' SET MESSAGE_TEXT = 'every team in group round has 3 matches no more!!';
-	END IF;
-
-	SELECT COUNT(*) INTO @groupGameNumber FROM Matches where round=1;
-	if @groupGameNumber >=12 and new.round =1 then
-		SIGNAL SQLSTATE '45000' SET MESSAGE_TEXT ='Number of mtches in group round is 12 no more!!';
-	end if;
-	
-	if new.round > 4 then
-		signal sqlstate '45000' set message_text = 'round is maximum 4';
-	end if;
-	
-	set @third_time = (SELECT timeSlotId FROM Matches 
-		 where Matches.round = 3  limit 1);
-	set @final_time = (SELECT timeSlotId FROM Matches 
-		 where Matches.round = 4  limit 1);
-	if @third_time is null and !(@final_time is null) then
-		signal sqlstate '45000' set message_text = 'add match for third palce first';
-	end if;
-	
-	if @third_time > @final_time then
-		signal sqlstate '45000' set message_text = 'Round of match for third palce must be less than final match';
-	end if;
-END */;;
-DELIMITER ;
-/*!50003 SET sql_mode              = @saved_sql_mode */ ;
-/*!50003 SET character_set_client  = @saved_cs_client */ ;
-/*!50003 SET character_set_results = @saved_cs_results */ ;
-/*!50003 SET collation_connection  = @saved_col_connection */ ;
-/*!50003 SET @saved_cs_client      = @@character_set_client */ ;
-/*!50003 SET @saved_cs_results     = @@character_set_results */ ;
-/*!50003 SET @saved_col_connection = @@collation_connection */ ;
-/*!50003 SET character_set_client  = utf8 */ ;
-/*!50003 SET character_set_results = utf8 */ ;
-/*!50003 SET collation_connection  = utf8_general_ci */ ;
-/*!50003 SET @saved_sql_mode       = @@sql_mode */ ;
-/*!50003 SET sql_mode              = '' */ ;
-DELIMITER ;;
-/*!50003 CREATE*/ /*!50017 DEFINER=`root`@`localhost`*/ /*!50003 TRIGGER Matches_update
-BEFORE update
-ON Matches
-FOR EACH ROW
-BEGIN
-	
-	set @gn1 = (SELECT groupNumber FROM Teams 
-		 where Teams.teamName= new.teamName1  limit 1);
-
-	set @gn2 = (SELECT groupNumber FROM Teams 
-		 where Teams.teamName= new.teamName2  limit 1);
-	IF new.round = 1 and (@gn1 != @gn2) then
-		SIGNAL SQLSTATE '45000' SET MESSAGE_TEXT = 'these are not in same group';
-	end if;
-	IF new.round = 2 and (@gn1 = @gn2) then
-		SIGNAL SQLSTATE '45000' SET MESSAGE_TEXT = 'these was in a group and it is immposible.';
-	end if;
-
-	if exists (SELECT * FROM Matches where new.timeSlotId = timeSlotId and new.refereeGroupId = refereeGroupId) then
-		SIGNAL SQLSTATE '45000' SET MESSAGE_TEXT = 'concurrent in referee group';
-	end if;
-	if exists (SELECT * FROM Matches where new.timeSlotId = timeSlotId and new.stadiumName = stadiumName) then
-		SIGNAL SQLSTATE '45000' SET MESSAGE_TEXT = 'concurrent in stadium';
-	end if;
-	if new.teamName1 = new.teamName2 then
-		SIGNAL SQLSTATE '45000' SET MESSAGE_TEXT = 'teamNames are not different!!';
-	end if;
-	
-	SELECT COUNT(*) INTO @gameNumber FROM Matches where teamName1 = NEW.teamName1 or teamName1 = new.teamName2 or teamName2 = new.teamName1 or teamName2 = new.teamName1;
-	IF @gameNumber = 2 and new.round = 1 and new.timeSlotId != 9 THEN
-		SIGNAL SQLSTATE '45000' SET MESSAGE_TEXT = 'in third match of every team in group round , timeSlotId must be 9';
-	elseif @gameNumber >=3 and new.round = 1 then
-		SIGNAL SQLSTATE '45000' SET MESSAGE_TEXT = 'every team in group round has 3 matches no more!!';
-	END IF;
-
-	SELECT COUNT(*) INTO @groupGameNumber FROM Matches where round=1;
-	if @groupGameNumber >=12 and new.round =1 then
-		SIGNAL SQLSTATE '45000' SET MESSAGE_TEXT ='Number of mtches in group round is 12 no more!!';
-	end if;
-	
-	if new.round > 4 then
-		signal sqlstate '45000' set message_text = 'round is maximum 4';
-	end if;
-	
-	set @third_time = (SELECT timeSlotId FROM Matches 
-		 where Matches.round = 3  limit 1);
-	set @final_time = (SELECT timeSlotId FROM Matches 
-		 where Matches.round = 4  limit 1);
-	if @third_time is null and !(@final_time is null) then
-		signal sqlstate '45000' set message_text = 'add match for third palce first';
-	end if;
-	
-	if @third_time > @final_time then
-		signal sqlstate '45000' set message_text = 'Round of match for third palce must be less than final match';
-	end if;
 END */;;
 DELIMITER ;
 /*!50003 SET sql_mode              = @saved_sql_mode */ ;
@@ -207,4 +102,4 @@ DELIMITER ;
 /*!40101 SET COLLATION_CONNECTION=@OLD_COLLATION_CONNECTION */;
 /*!40111 SET SQL_NOTES=@OLD_SQL_NOTES */;
 
--- Dump completed on 2016-12-24  0:09:18
+-- Dump completed on 2016-12-25  4:39:13

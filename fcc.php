@@ -16,13 +16,6 @@ $conn = new mysqli("localhost", "root", "121212", "ConfederationsCup");
 
         }
 
-        #contain {
-            background-color: #b0e4ff;
-            width: 900px;
-            padding: 30px;
-            padding-bottom: 50px;
-        }
-
         @font-face {
             font-family: 'Blokk';
             src: url('./fonts/blokk/BLOKKRegular.eot');
@@ -161,7 +154,7 @@ $conn = new mysqli("localhost", "root", "121212", "ConfederationsCup");
 
         #queryPlace {
             display: inline-block;
-            width: 600px;
+            width: 700px;
             height: 100px;
             font-size: 15px;
             border: 1px solid #888;
@@ -169,6 +162,7 @@ $conn = new mysqli("localhost", "root", "121212", "ConfederationsCup");
             margin: 20px auto;
             text-align: left;
             padding: 5px;
+            margin-left: 75px;
             font-family: Tahoma, sans-serif;
             background-color: #3CBEF2;
         }
@@ -191,7 +185,7 @@ $conn = new mysqli("localhost", "root", "121212", "ConfederationsCup");
             text-shadow: rgba(0, 0, 0, .4) 0 1px 0;
             color: white;
             font-size: 15px;
-
+            margin-left: 385px;
             font-family: Georgia, serif;
             text-decoration: none;
             vertical-align: middle;
@@ -207,70 +201,31 @@ $conn = new mysqli("localhost", "root", "121212", "ConfederationsCup");
             border-top-color: #2f5ed6;
             background: #2f5ed6;
         }
-
-        .addMatch {
-            border-top: 1px solid #3cbef2;
-            background: #3CBEF2;
-            background: -webkit-gradient(linear, left top, left bottom, from(#3cbef2), to(#65a9d7));
-            background: -webkit-linear-gradient(top, #3cbef2, #65a9d7);
-            background: -moz-linear-gradient(top, #3cbef2, #65a9d7);
-            background: -ms-linear-gradient(top, #3cbef2, #65a9d7);
-            background: -o-linear-gradient(top, #3cbef2, #65a9d7);
-            padding: 8.5px 17px;
-            -webkit-border-radius: 8px;
-            -moz-border-radius: 8px;
-            border-radius: 8px;
-            -webkit-box-shadow: rgba(0, 0, 0, 1) 0 1px 0;
-            -moz-box-shadow: rgba(0, 0, 0, 1) 0 1px 0;
-            box-shadow: rgba(0, 0, 0, 1) 0 1px 0;
-            text-shadow: rgba(0, 0, 0, .4) 0 1px 0;
+        #contain {
+            background-color: #b0e4ff;
+            width: 900px;
+            padding: 30px;
+            padding-bottom: 50px;
+        }
+        #title{
+            text-align: center;
+            background-color: #bc0039;
             color: white;
-            font-size: 15px;
-
-            font-family: Georgia, serif;
-            text-decoration: none;
-            vertical-align: middle;
+            font-size:30px;
+            font-family: "Ubuntu Condensed";
+            width: 900px;
+            padding: 30px;
+            padding-bottom: 50px;
         }
+        #myform{
 
-        .addMatch:hover {
-            border-top-color: #28597a;
-            background: #32789e;
-            color: #ccc;
-        }
-
-        .addMatch:active {
-            border-top-color: #2f5ed6;
-            background: #2f5ed6;
-        }
-
-        .matchItem {
-            display: inline-block;
-            width: 100px;
-            height: 30px;
-            font-size: 15px;
-            border: 1px solid #888;
-            color: #020c1d;
-            margin: 10px auto;
-            margin-right: 33px;
-            text-align: left;
-            padding: 5px;
-            font-family: Tahoma, sans-serif;
-            background-color: #3CBEF2;
-        }
-
-        #players1, #players2 {
-            width: 250px;
-
-        }
-
-        #qualifybtn {
-            background-color: darkolivegreen;
         }
     </style>
 </head>
 <body>
+<div id="title">FIFA Confederations Cup</div>
 <div id="contain">
-    <form action="fcc.php" method="post">
+    <form action="fcc.php" id="myform" method="post">
         <input type="text" id="queryPlace" name="queryPlace" placeholder="write your query here"/>
         <br/>
         <input type="submit" name="playbtn" id="playbtn" value="Play"/>

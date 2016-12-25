@@ -15,12 +15,14 @@ $conn = new mysqli("localhost", "root", "121212", "ConfederationsCup");
             direction: ltr;
 
         }
-        #contain{
+
+        #contain {
             background-color: #b0e4ff;
             width: 900px;
             padding: 30px;
             padding-bottom: 50px;
         }
+
         @font-face {
             font-family: 'Blokk';
             src: url('./fonts/blokk/BLOKKRegular.eot');
@@ -268,22 +270,18 @@ $conn = new mysqli("localhost", "root", "121212", "ConfederationsCup");
 </head>
 <body>
 <div id="contain">
-<form action="fcc.php" method="post">
-    <input type="text" id="queryPlace" name="queryPlace" placeholder="write your query here"/>
-    <br/>
-    <input type="submit" name="playbtn" id="playbtn" value="Play"/>
-</form>
+    <form action="fcc.php" method="post">
+        <input type="text" id="queryPlace" name="queryPlace" placeholder="write your query here"/>
+        <br/>
+        <input type="submit" name="playbtn" id="playbtn" value="Play"/>
+    </form>
 </div>
 <?php
 if (isset($_POST['playbtn'])) {
     $query = $_POST['queryPlace'];
-//echo $query;
-//$query = "SELECT * FROM Matches";
     $result = $conn->query($query);
     if ($result != false) {
         ?>
-        <br/>
-        <br/>
         <table>
         <?php
         echo '<tr>';
@@ -306,6 +304,5 @@ if (isset($_POST['playbtn'])) {
     </table>
 <?php }
 ?>
-
 </body>
 </html>

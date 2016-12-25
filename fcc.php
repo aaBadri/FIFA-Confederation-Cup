@@ -13,8 +13,14 @@ $conn = new mysqli("localhost", "root", "121212", "ConfederationsCup");
             font-family: Tahoma;
             font-size: 14px;
             direction: ltr;
-        }
 
+        }
+        #contain{
+            background-color: #b0e4ff;
+            width: 900px;
+            padding: 30px;
+            padding-bottom: 50px;
+        }
         @font-face {
             font-family: 'Blokk';
             src: url('./fonts/blokk/BLOKKRegular.eot');
@@ -71,7 +77,7 @@ $conn = new mysqli("localhost", "root", "121212", "ConfederationsCup");
         }
 
         tbody tr:nth-child(2n-1) {
-            background-color: #f5f5f5;
+            background-color: #b0e4ff;
             transition: all .125s ease-in-out;
         }
 
@@ -261,80 +267,13 @@ $conn = new mysqli("localhost", "root", "121212", "ConfederationsCup");
     </style>
 </head>
 <body>
+<div id="contain">
 <form action="fcc.php" method="post">
     <input type="text" id="queryPlace" name="queryPlace" placeholder="write your query here"/>
     <br/>
     <input type="submit" name="playbtn" id="playbtn" value="Play"/>
 </form>
-<form action="fcc.php" id="qualify" method="post">
-    <input type="submit" name="qualifybtn" id="qualifybtn" class="addMatch" value="qualify"/>
-</form>
-
-<?php
-if (isset($_POST['qualifybtn'])) {
-    $query = "SELECT * FROM Matches";
-    $result = $conn->query($query);
-    $not_null = true;
-    $counter =0;
-    while ($row = $result->fetch_row()) {
-        if($not_null==false)
-            break;
-        for ($i = 0; $i < sizeof($row); $i++) {
-            if($not_null==false)
-                break;
-            if ($row[7] == 1 and ($row[3] == null or $row[4] == null)) {
-                $not_null = false;
-
-                echo "<p style='color:red;font-size: 30px;'>".'First fill all matches in group round!!!!! '."</p>";
-            }
-
-        }
-    }
-    while ($row = $result->fetch_row()) {
-        if($not_null==false)
-            break;
-        for ($i = 0; $i < sizeof($row); $i++) {
-
-            if ($row[7] == 1 ) {
-                $counter++;
-            }
-
-        }
-    }
-    if ($not_null == true and $counter==12) {
-        try {
-            // execute the stored procedure
-            $sql = 'CALL qualify()';
-            // call the stored procedure
-            $q = $conn->query($sql);
-        } catch (PDOException $e) {
-            die("Error occurred:" . $e->getMessage());
-        }
-        $query = "SELECT * FROM Matches";
-        $result = $conn->query($query);
-        if ($result != false) {
-            ?>
-            <table>
-                <?php
-                echo '<tr>';
-                while ($property = mysqli_fetch_field($result)) {
-                    echo '<th>' . $property->name . '<th/>';
-                }
-                echo '<tr/>';
-                while ($row = $result->fetch_row()) {
-                    echo '<tr>';
-                    //foreach ($row as $item){
-                    for ($i = 0; $i < sizeof($row); $i++) {
-                        echo '<td>' . $row[$i] . '<td/>';
-                    }
-                    echo '<tr/>';
-                }
-
-                ?>
-            </table>
-        <?php }
-    }
-} ?>
+</div>
 <?php
 if (isset($_POST['playbtn'])) {
     $query = $_POST['queryPlace'];
@@ -367,19 +306,6 @@ if (isset($_POST['playbtn'])) {
     </table>
 <?php }
 ?>
-
-<form action="fcc.php" id="addForm" method="post">
-    <input type="team1" id="team1" name="team1" class="matchItem" placeholder="team1"/>
-    <input type="goal1" id="goal1" name="goal1" class="matchItem" placeholder="goal1"/>
-    <br/>
-    <input type="team2" id="team2" name="team1" class="matchItem" placeholder="team2"/>
-    <input type="goal2" id="goal2" name="goal2" class="matchItem" placeholder="goal2"/>
-    <br/>
-    <input type="players1" id="players1" name="players1" class="matchItem"
-           placeholder="write their id and separate them with ,"/>
-    <br/>
-    <input type="submit" name="addbtn" id="addbtn" class="addMatch" value="Add"/>
-</form>
 
 </body>
 </html>
